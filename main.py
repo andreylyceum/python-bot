@@ -1,4 +1,3 @@
-# проверка
 import telebot
 from data.teory_messages import TEORY_MSGS
 from data.practice_messages import PRACTICE_MSGS
