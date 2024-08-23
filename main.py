@@ -1,5 +1,5 @@
 import telebot
-from data.teory_messages import TEORY_MSGS
+from data.teory_messages import THEORY_MSGS
 from data.practice_messages import PRACTICE_MSGS
 from images.token import BOT_TOKEN
 
@@ -10,7 +10,7 @@ user_message = ""
 
 @bot.message_handler(commands=["start"])
 def start(message):
-    bot.send_message(message.chat.id, TEORY_MSGS["greeting text"])
+    bot.send_message(message.chat.id, THEORY_MSGS["greeting text"])
 
 
 @bot.message_handler(commands=["learn"])
@@ -36,10 +36,8 @@ def callback(call):
         theory_collections_topics(call.message)
     elif call.data == "функции":
         theory_func_topics(call.message)
-    elif call.data == "потоковый ввод":
+    elif call.data == "ввод stdin":
         theory_stdin_topics(call.message)
-    elif call.data == "декораторы":
-        theory_decorators_topics(call.message)
     elif call.data == "библиотеки":
         theory_books_topics(call.message)
     elif call.data == "ООП":
@@ -49,7 +47,6 @@ def callback(call):
          call.data == "коллекции_" or
          call.data == "функции_" or
          call.data == "потоковый ввод_" or
-         call.data == "декораторы_" or
          call.data == "библиотеки_" or
          call.data == "ООП_"
     ):
@@ -58,20 +55,19 @@ def callback(call):
         bot.send_message(call.message.chat.id, PRACTICE_MSGS[user_message])
         bot.register_next_step_handler(call.message, number_of_task)
     else:
-        bot.send_message(call.message.chat.id, TEORY_MSGS[call.data])
+        bot.send_message(call.message.chat.id, THEORY_MSGS[call.data], parse_mode="Markdown")
 
 
 def theory(message):
-    markup = telebot.types.InlineKeyboardMarkup(row_width=3)
+    markup = telebot.types.InlineKeyboardMarkup(row_width=2)
     btn1 = telebot.types.InlineKeyboardButton("основные понятия", callback_data="основные понятия")
     btn2 = telebot.types.InlineKeyboardButton("циклы", callback_data="циклы")
     btn3 = telebot.types.InlineKeyboardButton("коллекции", callback_data="коллекции")
     btn4 = telebot.types.InlineKeyboardButton("функции", callback_data="функции")
-    btn5 = telebot.types.InlineKeyboardButton("потоковый ввод", callback_data="потоковый ввод")
-    btn6 = telebot.types.InlineKeyboardButton("декораторы", callback_data="декораторы")
+    btn5 = telebot.types.InlineKeyboardButton("ввод stdin", callback_data="ввод stdin")
     btn7 = telebot.types.InlineKeyboardButton("библиотеки", callback_data="библиотеки")
     btn8 = telebot.types.InlineKeyboardButton("ООП", callback_data="ООП")
-    markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)
+    markup.add(btn1, btn2, btn3, btn4, btn5, btn7, btn8)
     bot.send_message(message.chat.id, "Выберите раздел с теорией", reply_markup=markup)
 
 
@@ -98,33 +94,25 @@ def theory_collections_topics(message):
     btn3 = telebot.types.InlineKeyboardButton("словари", callback_data="словари")
     markup.row(btn2, btn3)
     btn4 = telebot.types.InlineKeyboardButton("множества", callback_data="множества")
-    btn5 = telebot.types.InlineKeyboardButton("кортежи", callback_data="методы строк")
+    btn5 = telebot.types.InlineKeyboardButton("кортежи", callback_data="кортежи")
     markup.row(btn4, btn5)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
 def theory_func_topics(message):
     markup = telebot.types.InlineKeyboardMarkup()
-    btn1 = telebot.types.InlineKeyboardButton("с переменным числом аргументов", callback_data="с переменным числом аргументов")
-    markup.row(btn1)
+    btn1 = telebot.types.InlineKeyboardButton("декораторы", callback_data="декораторы")
+    btn4 = telebot.types.InlineKeyboardButton("map, sorted, filter", callback_data="map, sorted, filter")
+    markup.row(btn4, btn1)
     btn2 = telebot.types.InlineKeyboardButton("лямбда-функции", callback_data="лямбда-функции")
-    btn4 = telebot.types.InlineKeyboardButton("рекурсия", callback_data="рекурсия")
-    btn3 = telebot.types.InlineKeyboardButton("области видимости переменных", callback_data="области видимости переменных")
+    btn3 = telebot.types.InlineKeyboardButton("рекурсия", callback_data="рекурсия")
     markup.add(btn2, btn3)
-    markup.row(btn4)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
 def theory_stdin_topics(message):
     markup = telebot.types.InlineKeyboardMarkup()
-    btn1 = telebot.types.InlineKeyboardButton(" потоковый ввод stdin", callback_data=" потоковый ввод stdin")
-    markup.add(btn1)
-    bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
-
-
-def theory_decorators_topics(message):
-    markup = telebot.types.InlineKeyboardMarkup()
-    btn1 = telebot.types.InlineKeyboardButton("декораторы", callback_data="декораторы")
+    btn1 = telebot.types.InlineKeyboardButton("потоковый ввод stdin", callback_data="потоковый ввод stdin")
     markup.add(btn1)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
@@ -153,10 +141,9 @@ def practice(message):
     btn2 = telebot.types.InlineKeyboardButton("коллекции", callback_data="коллекции_")
     btn3 = telebot.types.InlineKeyboardButton("функции", callback_data="функции_")
     btn4 = telebot.types.InlineKeyboardButton("библиотеки", callback_data="библиотеки_")
-    btn5 = telebot.types.InlineKeyboardButton("ввод stdin", callback_data="ввод stdin_")
-    btn6 = telebot.types.InlineKeyboardButton("декораторы", callback_data="декораторы_")
+    btn5 = telebot.types.InlineKeyboardButton("ввод stdin", callback_data="потоковый ввод_")
     btn7 = telebot.types.InlineKeyboardButton("ООП", callback_data="ООП_")
-    markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
+    markup.add(btn1, btn2, btn3, btn4, btn5, btn7)
     bot.send_message(message.chat.id, "Выберите раздел для практики", reply_markup=markup)
 
 
@@ -169,7 +156,7 @@ def number_of_task(message):
         bot.send_message(message.chat.id, "Wrong type, please enter the number of task")
         bot.register_next_step_handler(message, number_of_task)
         return
-    if 0 < number < 8:
+    if 0 < number < 10:
         file = open(f"images/{user_message}/{number}.png", "rb")
         bot.send_photo(message.chat.id, file)
 
