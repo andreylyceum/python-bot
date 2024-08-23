@@ -1,4 +1,5 @@
 import telebot
+import sqlite3
 from data.teory_messages import THEORY_MSGS
 from data.practice_messages import PRACTICE_MSGS
 from images.token import BOT_TOKEN
@@ -10,6 +11,18 @@ user_message = ""
 
 @bot.message_handler(commands=["start"])
 def start(message):
+    conn = sqlite3.connect("python_bot_sql")
+    cur = conn.cursor()
+    cur.execute(
+        "CREATE TABLE IF NOT EXISTS users (id int auto_increment primary key, name varchar(50), telegram_id varchar(50))"
+    )
+    conn.commit()
+    name = message.from_user.first_name
+    telegram_id = message.from_user.username
+    cur.execute("INSERT INTO users (name, telegram_id) VALUES ('%s', '%s')" % (name, telegram_id))
+    conn.commit()
+    cur.close()
+    conn.close()
     bot.send_message(message.chat.id, THEORY_MSGS["greeting text"])
 
 
