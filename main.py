@@ -139,10 +139,12 @@ def theory_stdin_topics(message):
 
 
 def theory_books_topics(message):
-    markup = telebot.types.InlineKeyboardMarkup(row_width=3)
+    markup = telebot.types.InlineKeyboardMarkup(row_width=2)
     btn1 = telebot.types.InlineKeyboardButton("datetime", callback_data="datetime")
     btn2 = telebot.types.InlineKeyboardButton("random", callback_data="random")
-    markup.add(btn1, btn2)
+    btn3 = telebot.types.InlineKeyboardButton("numpy", callback_data="numpy")
+    btn4 = telebot.types.InlineKeyboardButton("pillow", callback_data="pillow")
+    markup.add(btn1, btn2, btn3, btn4)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
