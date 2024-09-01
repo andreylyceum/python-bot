@@ -64,12 +64,12 @@ def callback(call):
     elif call.data == "ООП":
         theory_oop_topics(call.message)
     elif (
-         call.data == "циклы_" or
-         call.data == "коллекции_" or
-         call.data == "функции_" or
-         call.data == "потоковый ввод_" or
-         call.data == "библиотеки_" or
-         call.data == "ООП_"
+            call.data == "циклы_" or
+            call.data == "коллекции_" or
+            call.data == "функции_" or
+            call.data == "потоковый ввод_" or
+            call.data == "библиотеки_" or
+            call.data == "ООП_"
     ):
         global user_message
         user_message = call.data
@@ -149,12 +149,12 @@ def theory_books_topics(message):
 
 
 def theory_oop_topics(message):
-    markup = telebot.types.InlineKeyboardMarkup()
+    markup = telebot.types.InlineKeyboardMarkup(row_width=2)
     btn1 = telebot.types.InlineKeyboardButton("полиморфизм", callback_data="полиморфизм")
-    markup.row(btn1)
     btn2 = telebot.types.InlineKeyboardButton("наследование", callback_data="наследование")
     btn3 = telebot.types.InlineKeyboardButton("инкапсуляция", callback_data="инкапсуляция")
-    markup.row(btn2, btn3)
+    btn4 = telebot.types.InlineKeyboardButton("магические методы", callback_data="магические методы")
+    markup.add(btn1, btn2, btn3, btn4)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
@@ -182,7 +182,8 @@ def number_of_task(message):
     if 0 < number < 10:
         file = open(f"images/{user_message}/{number}.png", "rb")
         bot.send_photo(message.chat.id, file)
+    else:
+        bot.send_message(message.chat.id, "Enter the number from 1 t0 10!")
 
 
 bot.infinity_polling()
-
