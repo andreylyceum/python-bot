@@ -63,6 +63,8 @@ def callback(call):
         theory_books_topics(call.message)
     elif call.data == "ООП":
         theory_oop_topics(call.message)
+    elif call.data == "алгоритмы":
+        theory_algoritms_topics(call.message)
     elif (
             call.data == "циклы_" or
             call.data == "коллекции_" or
@@ -88,7 +90,8 @@ def theory(message):
     btn5 = telebot.types.InlineKeyboardButton("ввод stdin", callback_data="ввод stdin")
     btn7 = telebot.types.InlineKeyboardButton("библиотеки", callback_data="библиотеки")
     btn8 = telebot.types.InlineKeyboardButton("ООП", callback_data="ООП")
-    markup.add(btn1, btn2, btn3, btn4, btn5, btn7, btn8)
+    btn9 = telebot.types.InlineKeyboardButton("алгоритмы", callback_data="алгоритмы")
+    markup.add(btn1, btn2, btn3, btn4, btn5, btn7, btn8, btn9)
     bot.send_message(message.chat.id, "Выберите раздел с теорией", reply_markup=markup)
 
 
@@ -155,6 +158,13 @@ def theory_oop_topics(message):
     btn3 = telebot.types.InlineKeyboardButton("инкапсуляция", callback_data="инкапсуляция")
     btn4 = telebot.types.InlineKeyboardButton("магические методы", callback_data="магические методы")
     markup.add(btn1, btn2, btn3, btn4)
+    bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
+
+
+def theory_algoritms_topics(message):
+    markup = telebot.types.InlineKeyboardMarkup(row_width=2)
+    btn1 = telebot.types.InlineKeyboardButton("бинарный поиск", callback_data="бинарный поиск")
+    markup.add(btn1)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
