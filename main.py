@@ -164,7 +164,8 @@ def theory_oop_topics(message):
 def theory_algoritms_topics(message):
     markup = telebot.types.InlineKeyboardMarkup(row_width=2)
     btn1 = telebot.types.InlineKeyboardButton("бинарный поиск", callback_data="бинарный поиск")
-    markup.add(btn1)
+    btn2 = telebot.types.InlineKeyboardButton("сортировка выбором", callback_data="сортировка выбором")
+    markup.add(btn1, btn2)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
