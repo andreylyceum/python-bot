@@ -166,7 +166,8 @@ def theory_algoritms_topics(message):
     btn1 = telebot.types.InlineKeyboardButton("бинарный поиск", callback_data="бинарный поиск")
     btn2 = telebot.types.InlineKeyboardButton("сортировка выбором", callback_data="сортировка выбором")
     btn3 = telebot.types.InlineKeyboardButton("быстрая сортировка", callback_data="быстрая сортировка")
-    markup.add(btn1, btn2, btn3)
+    btn4 = telebot.types.InlineKeyboardButton("поиск в ширину", callback_data="поиск в ширину")
+    markup.add(btn1, btn2, btn3, btn4)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
