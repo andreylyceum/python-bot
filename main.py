@@ -12,6 +12,11 @@ user_message = ""
 
 @bot.message_handler(commands=["start"])
 def start(message):
+    bot.send_message(message.chat.id, THEORY_MSGS["greeting text"])
+
+
+@bot.message_handler(commands=["learn"])
+def first_message(message):
     conn = sqlite3.connect("python_bot_sql")
     cur = conn.cursor()
     cur.execute(
@@ -24,18 +29,18 @@ def start(message):
     )
     conn.commit()
     name = message.from_user.first_name
-    telegram_id = message.from_user.username
+    telegram_id = message.from_user.username or str(message.from_user.id)
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-    cur.execute("INSERT INTO users (name, telegram_id, timestamp) VALUES (?, ?, ?)",
-                (name, telegram_id, timestamp))
-    conn.commit()
-    cur.close()
-    conn.close()
-    bot.send_message(message.chat.id, THEORY_MSGS["greeting text"])
+    try:
+        cur.execute("INSERT INTO users (name, telegram_id, timestamp) VALUES (?, ?, ?)",
+                    (name, telegram_id, timestamp))
+        conn.commit()
+    except sqlite3.Error as e:
+        print(f"An error occurred: {e}")
+    finally:
+        cur.close()
+        conn.close()
 
-
-@bot.message_handler(commands=["learn"])
-def first_message(message):
     markup = telebot.types.InlineKeyboardMarkup(row_width=2)
     btn1 = telebot.types.InlineKeyboardButton("теория", callback_data="теория")
     btn2 = telebot.types.InlineKeyboardButton("практика", callback_data="практика")
