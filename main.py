@@ -64,7 +64,7 @@ def callback(call):
     elif call.data == "ООП":
         theory_oop_topics(call.message)
     elif call.data == "алгоритмы":
-        theory_algoritms_topics(call.message)
+        theory_algorithms_topics(call.message)
     elif (
             call.data == "циклы_" or
             call.data == "коллекции_" or
@@ -161,13 +161,14 @@ def theory_oop_topics(message):
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
-def theory_algoritms_topics(message):
+def theory_algorithms_topics(message):
     markup = telebot.types.InlineKeyboardMarkup(row_width=2)
     btn1 = telebot.types.InlineKeyboardButton("бинарный поиск", callback_data="бинарный поиск")
     btn2 = telebot.types.InlineKeyboardButton("сортировка выбором", callback_data="сортировка выбором")
     btn3 = telebot.types.InlineKeyboardButton("быстрая сортировка", callback_data="быстрая сортировка")
     btn4 = telebot.types.InlineKeyboardButton("поиск в ширину", callback_data="поиск в ширину")
-    markup.add(btn1, btn2, btn3, btn4)
+    btn5 = telebot.types.InlineKeyboardButton("алгоритм Дейкстеры", callback_data="алгоритм Дейкстеры")
+    markup.add(btn1, btn2, btn3, btn4, btn5)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
