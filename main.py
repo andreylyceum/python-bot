@@ -172,8 +172,9 @@ def theory_algorithms_topics(message):
     btn2 = telebot.types.InlineKeyboardButton("сортировка выбором", callback_data="сортировка выбором")
     btn3 = telebot.types.InlineKeyboardButton("быстрая сортировка", callback_data="быстрая сортировка")
     btn4 = telebot.types.InlineKeyboardButton("поиск в ширину", callback_data="поиск в ширину")
-    btn5 = telebot.types.InlineKeyboardButton("алгоритм Дейкстеры", callback_data="алгоритм Дейкстеры")
-    markup.add(btn1, btn2, btn3, btn4, btn5)
+    btn5 = telebot.types.InlineKeyboardButton("алгоритм Дейкстры", callback_data="алгоритм Дейкстры")
+    btn6 = telebot.types.InlineKeyboardButton("жадные алгоритмы", callback_data="жадные алгоритмы")
+    markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
