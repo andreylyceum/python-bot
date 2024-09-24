@@ -157,7 +157,7 @@ def theory_books_topics(message):
 
 
 def theory_oop_topics(message):
-    markup = telebot.types.InlineKeyboardMarkup()
+    markup = telebot.types.InlineKeyboardMarkup(row_width=1)
     btn1 = telebot.types.InlineKeyboardButton("полиморфизм", callback_data="полиморфизм")
     btn2 = telebot.types.InlineKeyboardButton("наследование", callback_data="наследование")
     btn4 = telebot.types.InlineKeyboardButton("магические методы", callback_data="магические методы")
