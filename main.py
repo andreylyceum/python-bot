@@ -157,12 +157,11 @@ def theory_books_topics(message):
 
 
 def theory_oop_topics(message):
-    markup = telebot.types.InlineKeyboardMarkup(row_width=2)
+    markup = telebot.types.InlineKeyboardMarkup()
     btn1 = telebot.types.InlineKeyboardButton("полиморфизм", callback_data="полиморфизм")
     btn2 = telebot.types.InlineKeyboardButton("наследование", callback_data="наследование")
-    btn3 = telebot.types.InlineKeyboardButton("инкапсуляция", callback_data="инкапсуляция")
     btn4 = telebot.types.InlineKeyboardButton("магические методы", callback_data="магические методы")
-    markup.add(btn1, btn2, btn3, btn4)
+    markup.add(btn1, btn2, btn4)
     bot.send_message(message.chat.id, "Выберите тему", reply_markup=markup)
 
 
